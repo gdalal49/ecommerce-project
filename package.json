@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/Prabhjout/Amazona#readme",
   "dependencies": {
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "i": "^0.3.7"
   },
   "devDependencies": {
     "eslint": "^8.7.0",
