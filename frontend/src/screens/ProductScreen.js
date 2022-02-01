@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams} from 'react-router-dom';
-import { detailsProduct } from '../actions/productActions';
-import LoadingBox from '../components/LoadingBox';
-import MessageBox from '../components/MessageBox';
-import Rating from '../components/Rating';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { detailsProduct } from "../actions/productActions";
+import LoadingBox from "../components/LoadingBox";
+import MessageBox from "../components/MessageBox";
+import Rating from "../components/Rating";
 
 export default function ProductScreen(props) {
   const dispatch = useDispatch();
@@ -12,11 +12,14 @@ export default function ProductScreen(props) {
   const [qty, setQty] = useState(1);
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
-
+  const navigate=useNavigate();
   useEffect(() => {
     dispatch(detailsProduct(productId));
   }, [dispatch, productId]);
-  
+  const addToCartHandler = () => {
+    navigate(`/cart/${productId}?qty=${qty}`);
+  };
+
   return (
     <div>
       {loading ? (
@@ -73,7 +76,7 @@ export default function ProductScreen(props) {
                       </div>
                     </div>
                   </li>
-                    {product.countInStock > 0 && (
+                  {product.countInStock > 0 && (
                     <>
                       <li>
                         <div className="row">
@@ -94,8 +97,13 @@ export default function ProductScreen(props) {
                           </div>
                         </div>
                       </li>
-                      <li>                        
-                        <Link to={{  pathname: `/cart/${productId}?qty=${qty}`,}}>Add to Cart</Link>
+                      <li>
+                        <button
+                          onClick={addToCartHandler}
+                          className="primary block"
+                        >
+                          Add to Cart
+                        </button>
                       </li>
                     </>
                   )}
