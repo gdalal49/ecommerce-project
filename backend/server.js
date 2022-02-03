@@ -1,11 +1,14 @@
 import express from 'express';
-import data from './data.js';
 import mongoose from 'mongoose';
-const app = express();
+import dotenv from 'dotenv';
 import userRouter from './Router/userRouter.js';
 import productRouter from './Router/productRouter.js';
 
+dotenv.config();
 
+const app = express();
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 const url = "mongodb+srv://lokesh_2052:lokesh_2052@cluster0.mvtfn.mongodb.net/ecommerce?retryWrites=true&w=majority"
 
@@ -29,6 +32,6 @@ app.listen(port, () => {
   console.log(`Serve at http://localhost:${port}`);
 });
 
-app.use((err,req,res,next)=>{
+app.use((err, req, res, next)=>{
   res.status(500).send({message:err.message});
 });
