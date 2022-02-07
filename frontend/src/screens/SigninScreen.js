@@ -9,20 +9,21 @@ export default function SigninScreen(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo, loading, error } = userSignin;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const submitHandler = (e) => { 
-      e.preventDefault(); 
-      dispatch(signin(email, password)); 
-      if (!error) { 
-          navigate("/"); 
-        } 
-    };
-  
+  useEffect(() => {
+    dispatch(signin(email, password));
+  }, [dispatch, email, password]);
+  const submitHandler = (e) => {
+    e.preventDefault();
+    if (!error) { 
+      navigate("/"); 
+    }
+  };
+
   return (
     <div>
       <form className="form" onSubmit={submitHandler}>
@@ -60,7 +61,10 @@ export default function SigninScreen(props) {
         <div>
           <label />
           <div>
-            New customer? <Link to="/register">Create your account</Link>
+            New customer?{' '}
+            <Link to={`/register`}>
+              Create your account
+            </Link>
           </div>
         </div>
       </form>

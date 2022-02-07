@@ -1,11 +1,12 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter, Link, Route } from 'react-router-dom';
-import { signout } from './actions/userActions';
-import CartScreen from './screens/CartScreen';
-import HomeScreen from './screens/HomeScreen';
-import ProductScreen from './screens/ProductScreen';
-import SigninScreen from './screens/SigninScreen';
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { signout } from "./actions/userActions";
+import CartScreen from "./screens/CartScreen";
+import HomeScreen from "./screens/HomeScreen";
+import ProductScreen from "./screens/ProductScreen";
+import SigninScreen from "./screens/SigninScreen";
+import RegisterScreen from "./screens/RegisterScreen";
 
 function App() {
   const cart = useSelector((state) => state.cart);
@@ -35,7 +36,7 @@ function App() {
             {userInfo ? (
               <div className="dropdown">
                 <Link to="#">
-                  {userInfo.name} <i className="fa fa-caret-down"></i>{' '}
+                  {userInfo.name} <i className="fa fa-caret-down"></i>{" "}
                 </Link>
                 <ul className="dropdown-content">
                   <li>
@@ -51,10 +52,14 @@ function App() {
           </div>
         </header>
         <main>
-          <Route path="/cart/:id?" component={CartScreen}></Route>
-          <Route path="/product/:id" component={ProductScreen}></Route>
-          <Route path="/signin" component={SigninScreen}></Route>
-          <Route path="/" component={HomeScreen} exact></Route>
+          <Routes>
+          <Route path={"/cart/:id"} element={<CartScreen />}></Route>
+          <Route path={"product/:id"} element={<ProductScreen />}></Route>
+          <Route path="/signin" element={<SigninScreen />}></Route>
+          <Route path="/register" element={<RegisterScreen />}></Route>
+          <Route path="/" element={<HomeScreen />} exact></Route>
+          </Routes>
+          
         </main>
         <footer className="row center">All right reserved</footer>
       </div>
