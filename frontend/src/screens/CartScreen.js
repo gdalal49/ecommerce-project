@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, removeFromCart } from '../actions/cartActions';
 import MessageBox from '../components/MessageBox';
@@ -21,8 +21,9 @@ export default function CartScreen(props) {
     console.log(id);
     dispatch(removeFromCart(id));
   }
+  const navigate=useNavigate();
   const checkOutHandler = () => {
-
+    navigate('/signin?redirect=/shipping');
   }
   return (
     <div className="row top">
@@ -48,7 +49,7 @@ export default function CartScreen(props) {
                     <select value = {item.qty} onChange={(e)=>{
                     dispatch(addToCart(item.product,Number(e.target.value)))
                     }}>
-                      {[...Array(item.countInStock).keys()].map((x) => (
+                      {[...Array(parseInt(item.countInStock)).keys()].map((x) => (
                         <option key={x + 1} value={x + 1}>
                           {x + 1}
                           </option>

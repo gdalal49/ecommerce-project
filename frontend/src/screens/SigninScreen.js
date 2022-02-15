@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { signin } from '../actions/userActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
@@ -8,20 +8,22 @@ import MessageBox from '../components/MessageBox';
 export default function SigninScreen(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo, loading, error } = userSignin;
 
+  const { search } = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
-    dispatch(signin(email, password));
-  }, [dispatch, email, password]);
+    if(userInfo && !error){
+      const redirect=search.split('=')[1];
+      //console.log(search.split('/')[1])
+      navigate(redirect);
+    }
+  }, [dispatch, userInfo, error]);
   const submitHandler = (e) => {
     e.preventDefault();
-    if (!error) { 
-      navigate("/"); 
-    }
+    dispatch(signin(email, password));
   };
 
   return (
@@ -62,7 +64,7 @@ export default function SigninScreen(props) {
           <label />
           <div>
             New customer?{' '}
-            <Link to={`/register`}>
+            <Link to={`/register?redirect=shipping`}>
               Create your account
             </Link>
           </div>

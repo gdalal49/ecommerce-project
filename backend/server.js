@@ -22,7 +22,7 @@ mongoose
   .then(console.log("Connected to MongoDB"))
   .catch((err) => console.log(err));
 
-app.use("/api/user",userRouter);
+app.use("/api/users",userRouter);
 app.use("/api/products",productRouter);
 app.get('/', (req, res) => {
   res.send('Server is ready');

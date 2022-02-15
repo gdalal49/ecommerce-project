@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { register } from "../actions/userActions";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
@@ -10,10 +10,6 @@ export default function RegisterScreen(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
-  const redirect = props.location.search
-    ? props.location.search.split("=")[1]
-    : "/";
 
   const userRegister = useSelector((state) => state.userRegister);
   const { userInfo, loading, error } = userRegister;
@@ -28,11 +24,15 @@ export default function RegisterScreen(props) {
       dispatch(register(name, email, password));
     }
   };
+  const navigate = useNavigate();
+  const { search } = useLocation();
+  const redirectInUrl = new URLSearchParams(search).get('redirect');
+  const redirect = redirectInUrl ? redirectInUrl : '/';
   useEffect(() => {
     if (userInfo) {
-      props.history.push(redirect);
+      navigate(redirect);
     }
-  }, [props.history, redirect, userInfo]);
+  }, [props.history, userInfo]);
   return (
     <div>
       <form className="form" onSubmit={submitHandler}>
@@ -91,7 +91,7 @@ export default function RegisterScreen(props) {
           <label />
           <div>
             Already have an account?{" "}
-            <Link to={`/signin?redirect=${redirect}`}>Sign-In</Link>
+            <Link to={`/shipping`}>Sign-In</Link>
           </div>
         </div>
       </form>

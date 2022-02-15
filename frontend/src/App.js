@@ -7,6 +7,10 @@ import HomeScreen from "./screens/HomeScreen";
 import ProductScreen from "./screens/ProductScreen";
 import SigninScreen from "./screens/SigninScreen";
 import RegisterScreen from "./screens/RegisterScreen";
+import CheckoutSteps from "./screens/CheckoutSteps";
+import ShippingAddressScreen from "./screens/ShippingAddressScreen";
+import PaymentMethod from "./screens/PaymentMethodScreen";
+import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 
 function App() {
   const cart = useSelector((state) => state.cart);
@@ -54,9 +58,13 @@ function App() {
         <main>
           <Routes>
           <Route path={"/cart/:id"} element={<CartScreen />}></Route>
+          <Route path={"/cart"} element={<CartScreen />}></Route>
+          <Route path={"/placeorder"} element={<PlaceOrderScreen />}></Route>
           <Route path={"product/:id"} element={<ProductScreen />}></Route>
           <Route path="/signin" element={<SigninScreen />}></Route>
           <Route path="/register" element={<RegisterScreen />}></Route>
+          <Route path="/shipping" element = {<ShippingAddressScreen/>}></Route>
+          <Route path="/payment" element = {<PaymentMethod/>}></Route>
           <Route path="/" element={<HomeScreen />} exact></Route>
           </Routes>
           
