@@ -20,7 +20,7 @@ export default function SigninScreen(props) {
       //console.log(search.split('/')[1])
       navigate(redirect);
     }
-  }, [dispatch, userInfo, error]);
+  }, [navigate, dispatch, userInfo, error, search]);
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(signin(email, password));

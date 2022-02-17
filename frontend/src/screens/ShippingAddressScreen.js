@@ -51,7 +51,7 @@ export default function ShippingAddressScreen(props) {
                     ></input>
               </div>
               <div>
-                  <label htmlFor="city">Full Name</label>
+                  <label htmlFor="city">City</label>
                   <input type="text" id="city" placeholder="Enter your City"
                     value={city}
                     onChange = {(e)=>setCity(e.target.value)}
