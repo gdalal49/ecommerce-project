@@ -11,6 +11,7 @@ import CheckoutSteps from "./screens/CheckoutSteps";
 import ShippingAddressScreen from "./screens/ShippingAddressScreen";
 import PaymentMethod from "./screens/PaymentMethodScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
+import OrderScreen from "./screens/OrderScreen";
 
 function App() {
   const cart = useSelector((state) => state.cart);
@@ -65,6 +66,7 @@ function App() {
           <Route path="/register" element={<RegisterScreen />}></Route>
           <Route path="/shipping" element = {<ShippingAddressScreen/>}></Route>
           <Route path="/payment" element = {<PaymentMethod/>}></Route>
+          <Route path="/order/:id" element = {<OrderScreen/>}></Route>
           <Route path="/" element={<HomeScreen />} exact></Route>
           </Routes>
           
