@@ -15,8 +15,8 @@ export default function SigninScreen(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
-    if(userInfo && !error){
-      const redirect=search.split('=')[1];
+    if (userInfo && !error) {
+      const redirect = search.split('=')[1];
       //console.log(search.split('/')[1])
       navigate(redirect);
     }
